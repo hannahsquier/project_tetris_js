@@ -146,6 +146,21 @@ var MODEL = {
         PIECES.rotateL();
         break;
 
+      case "j":
+        PIECES.rotateJ();
+        break;
+
+      case "t":
+        PIECES.rotateT();
+        break;
+
+      case "s":
+        PIECES.rotateS();
+        break;
+
+      case "z":
+        PIECES.rotateZ();
+        break;
       default:
         return;
     }

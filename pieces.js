@@ -3,10 +3,10 @@ var PIECES = {
     if (col > MODEL.WIDTH - 2) {
       col = MODEL.WIDTH - 2
     }
-    MODEL.board[3][col] = new Block(3, col, "yellow")
-    MODEL.board[3][col + 1] = new Block(3, col + 1, "yellow")
-    MODEL.board[4][col] = new Block(4, col, "yellow")
-    MODEL.board[4][col + 1] = new Block(4, col + 1, "yellow")
+    MODEL.board[3][col] = new Block(3, col, "#FFD700")
+    MODEL.board[3][col + 1] = new Block(3, col + 1, "#FFD700")
+    MODEL.board[4][col] = new Block(4, col, "#FFD700")
+    MODEL.board[4][col + 1] = new Block(4, col + 1, "#FFD700")
     MODEL.currentPiece = "square"
   },
 
@@ -22,10 +22,10 @@ var PIECES = {
     if (col > MODEL.WIDTH - 3) {
       col = MODEL.WIDTH - 3
     }
-    MODEL.board[3][col + 2] = new Block(3, col + 2, "purple");
-    MODEL.board[3][col] = new Block(3, col, "purple");
-    MODEL.board[3][col + 1] = new Block(3, col + 1, "purple");
-    MODEL.board[4][col + 1] = new Block(4, col + 1, "purple");
+    MODEL.board[3][col + 2] = new Block(3, col + 2, "#6f006f");
+    MODEL.board[3][col] = new Block(3, col, "#6f006f");
+    MODEL.board[3][col + 1] = new Block(3, col + 1, "#6f006f");
+    MODEL.board[4][col + 1] = new Block(4, col + 1, "#6f006f");
     MODEL.currentPiece = "t"
   },
 
@@ -33,10 +33,10 @@ var PIECES = {
     if (col > MODEL.WIDTH - 2) {
       col = MODEL.WIDTH - 2
     }
-    MODEL.board[2][col] = new Block(2, col, "blue");
-    MODEL.board[3][col] = new Block(3, col, "blue");
-    MODEL.board[4][col] = new Block(4, col, "blue");
-    MODEL.board[4][col + 1] = new Block(4, col + 1, "blue");
+    MODEL.board[2][col] = new Block(2, col, "#6666ff");
+    MODEL.board[3][col] = new Block(3, col, "#6666ff");
+    MODEL.board[4][col] = new Block(4, col, "#6666ff");
+    MODEL.board[4][col + 1] = new Block(4, col + 1, "#6666ff");
     MODEL.currentPiece = "l"
   },
 
@@ -44,10 +44,10 @@ var PIECES = {
     if (col > MODEL.WIDTH - 2) {
       col = MODEL.WIDTH - 2
     }
-    MODEL.board[2][col + 1] = new Block(2, col + 1, "orange");
-    MODEL.board[3][col + 1] = new Block(3, col + 1, "orange");
-    MODEL.board[4][col + 1] = new Block(4, col + 1, "orange");
-    MODEL.board[4][col] = new Block(4, col, "orange");
+    MODEL.board[2][col + 1] = new Block(2, col + 1, "#ffb732");
+    MODEL.board[3][col + 1] = new Block(3, col + 1, "#ffb732");
+    MODEL.board[4][col + 1] = new Block(4, col + 1, "#ffb732");
+    MODEL.board[4][col] = new Block(4, col, "#ffb732");
     MODEL.currentPiece = "j"
   },
 
@@ -55,10 +55,10 @@ var PIECES = {
     if (col > MODEL.WIDTH - 3) {
       col = MODEL.WIDTH - 3
     }
-    MODEL.board[4][col] = new Block(4, col, "green");
-    MODEL.board[4][col + 1] = new Block(4, col + 1, "green");
-    MODEL.board[3][col + 1] = new Block(3, col + 1, "green");
-    MODEL.board[3][col + 2] = new Block(3, col + 2, "green");
+    MODEL.board[4][col] = new Block(4, col, "#aadd77");
+    MODEL.board[4][col + 1] = new Block(4, col + 1, "#aadd77");
+    MODEL.board[3][col + 1] = new Block(3, col + 1, "#aadd77");
+    MODEL.board[3][col + 2] = new Block(3, col + 2, "#aadd77");
     MODEL.currentPiece = "s"
   },
 
@@ -66,10 +66,10 @@ var PIECES = {
     if (col > MODEL.WIDTH - 3) {
       col = MODEL.WIDTH - 3
     }
-    MODEL.board[3][col] = new Block(3, col, "magenta");
-    MODEL.board[3][col + 1] = new Block(3, col + 1, "magenta");
-    MODEL.board[4][col + 1] = new Block(4, col + 1, "magenta");
-    MODEL.board[4][col + 2] = new Block(4, col + 2, "magenta");
+    MODEL.board[3][col] = new Block(3, col, "#006400");
+    MODEL.board[3][col + 1] = new Block(3, col + 1, "#006400");
+    MODEL.board[4][col + 1] = new Block(4, col + 1, "#006400");
+    MODEL.board[4][col + 2] = new Block(4, col + 2, "#006400");
     MODEL.currentPiece = "z"
   },
 
@@ -79,7 +79,7 @@ var PIECES = {
     var shapes = (["buildSquare", "buildZ", "buildS", "buildL", "buildJ", "buildLine", "buildT"]);
     var randNum = Math.floor(Math.random() * shapes.length);
     PIECES[shapes[randNum]](col);
-    // PIECES["buildL"](col);
+    // PIECES["buildZ"](col);
   },
 
   gatherActivePieces: function() {
@@ -136,7 +136,6 @@ var PIECES = {
     }
 
     switch (pieces[0].rotState) {
-      // flat to standing
       case 0:
         pieces[0].row += 2
         pieces[1].row += 1
@@ -144,7 +143,7 @@ var PIECES = {
         pieces[3].row -= 1
         pieces[3].col -= 1
         break;
-      // standing to flat
+
       case 1:
         pieces[0].row += 1
         pieces[0].col += 1
@@ -170,36 +169,216 @@ var PIECES = {
         break;
     }
   },
+
   rotateJ: function() {
     var pieces = PIECES.gatherActivePieces()
 
     for (var i in pieces) {
       pieces[i].rotState++;
-        if (pieces[i].rotState === 2) {
+        if (pieces[i].rotState === 4) {
           pieces[i].rotState = 0
         }
     }
 
     switch (pieces[0].rotState) {
-      // flat to standing
+      case 3:
+        pieces[0].row += 1
+        pieces[0].col += 1
+        pieces[1].row += 2
+        pieces[3].col -= 1
+        pieces[3].row -= 1
+        break;
+
       case 0:
-        pieces[0].row -= 2
+        pieces[0].col += 1
+        pieces[0].row -= 1
+        pieces[2].col -= 1
+        pieces[2].row += 1
+        pieces[3].col -= 2
+
+        break;
+
+      case 1:
+        pieces[0].row += 1
+        pieces[0].col += 1
+        pieces[2].row -= 2
+        pieces[3].col -= 1
+        pieces[3].row -= 1
+        break;
+
+      case 2:
         pieces[0].col += 2
         pieces[1].row -= 1
         pieces[1].col += 1
         pieces[3].row += 1
         pieces[3].col -= 1
         break;
-      // standing to flat
-      case 1:
-        pieces[0].row += 2
-        pieces[0].col -= 2
-        pieces[1].row += 1
-        pieces[1].col -= 1
+    }
+  },
+
+  rotateT: function() {
+    var pieces = PIECES.gatherActivePieces()
+
+    for (var i in pieces) {
+      pieces[i].rotState++;
+        if (pieces[i].rotState === 4) {
+          pieces[i].rotState = 0
+        }
+    }
+
+    switch (pieces[0].rotState) {
+      case 0:
+        pieces[0].row += 1
+        pieces[0].col += 1
+        pieces[2].row += 1
+        pieces[2].col -= 1
+        pieces[3].col -= 1
         pieces[3].row -= 1
-        pieces[3].col += 1
+        break;
+
+      case 1:
+        pieces[0].row -= 1
+        pieces[0].col += 1
+        pieces[2].col -= 1
+        pieces[2].row += 1
+        pieces[3].row -= 1
+        pieces[3].col -= 1
+
+        break;
+
+      case 2:
+        pieces[0].row += 1
+        pieces[0].col += 1
+        pieces[1].row -= 1
+        pieces[1].col += 1
+        pieces[3].col -= 1
+        pieces[3].row -= 1
+        break;
+
+      case 3:
+        pieces[0].row += 1
+        pieces[0].col += 1
+        pieces[1].row -= 1
+        pieces[1].col += 1
+        pieces[3].col -= 1
+        pieces[3].row += 1
+        break;
+    }
+  },
+
+    rotateS: function() {
+    var pieces = PIECES.gatherActivePieces()
+
+    for (var i in pieces) {
+      pieces[i].rotState++;
+        if (pieces[i].rotState === 4) {
+          pieces[i].rotState = 0
+        }
+    }
+
+
+    switch (pieces[0].rotState) {
+      case 0:
+        pieces[0].row += 1
+        pieces[0].col += 1
+        pieces[2].row += 1
+        pieces[2].col -= 1
+        pieces[3].col -= 2
+        break;
+
+      case 1:
+        pieces[0].col += 1
+        pieces[1].row += 1
+        pieces[2].row -= 2
+        pieces[2].col += 1
+        pieces[3].row -= 1
+
+        break;
+
+      case 2:
+        pieces[0].row += 1
+        pieces[0].col += 1
+        pieces[2].row += 1
+        pieces[2].col -= 1
+        pieces[3].col -= 2
+        break;
+
+      case 3:
+        pieces[0].col += 1
+        pieces[1].row += 1
+        pieces[2].col += 1
+        pieces[2].row -= 2
+        pieces[3].row -= 1
+        break;
+    }
+  },
+
+
+    rotateZ: function() {
+    var pieces = PIECES.gatherActivePieces()
+
+    for (var i in pieces) {
+      pieces[i].rotState++;
+        if (pieces[i].rotState === 4) {
+          pieces[i].rotState = 0
+        }
+    }
+
+
+    switch (pieces[0].rotState) {
+      case 0:
+        pieces[0].row += 2
+        pieces[2].row += 1
+        pieces[2].col -= 1
+        pieces[3].col -= 1
+        pieces[3].row -= 1
+
+        break;
+      case 1:
+        pieces[0].col += 1
+        pieces[1].row += 1
+        pieces[2].row -= 2
+        pieces[2].col += 1
+        pieces[3].row -= 1
+
+        break;
+
+      case 2:
+        pieces[0].row += 2
+        pieces[2].row += 1
+        pieces[2].col -= 1
+        pieces[3].col -= 1
+        pieces[3].row -= 1
+
+        break;
+
+      case 3:
+        pieces[0].col += 1
+        pieces[1].row += 1
+        pieces[2].col += 1
+        pieces[2].row -= 2
+        pieces[3].row -= 1
         break;
     }
   },
 
 }
+
+// var rotations = [
+//   [
+//   [0, 1, 0],
+//   [0, 1, 0],
+//   [1, 1, 0]
+//   ],
+
+//   [
+//   [0, 0, 0],
+//   [1, 1, 1],
+//   [0, 0, 1]
+//   ]
+// ];
+
+// var currentRotation = rotations[currentRotationIndex];
+
+// currentRotationIndex--;
+// currentRotationIndex++;
